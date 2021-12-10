@@ -1,3 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quize game2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700&family=Source+Sans+Pro:wght@200;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    
+    
+  <h1>This is a quiz2</h1>
+
+   
+
+  <!-- <div class="question">  Model question? </div>
+<fieldset>
+    
+      <input type="radio" name="q1" id="Q1.O1" value = "correct" ><label for="Q1.O1">Central Processing Unit</label>
+      <input type="radio" name="q1" id="Q1.O2" value = "incorrect" ><label for="Q1.O1">Central Process Unit</label>
+      <input type="radio" name="q1" id="Q1.O3" value = "incorrect" ><label for="Q1.O1">Computer Personal Unit</label>
+      <input type="radio" name="q1" id="Q1.O4" value = "incorrect" ><label for="Q1.O1">Central Processor Unit</label>
+</fieldset>
+ -->
+    <div id="questions-container">
+        <!-- Questions will be loaded here from the object -->
+    </div>
+    
+    
+    <div id="button-container"><button onClick="checkAnswers()" >Get me score</button></div>
+    <div id="score"></div>
+    
+    <script >
 
 /*  
   QUIZ GAME!
@@ -29,7 +66,7 @@
     Commit and push the code to your personal GitHub repository; then post the link of your commit on the Homework section of today's Eduflow.
   */
 
-const questions = [
+  const questions = [
   {
     category: "Science: Computers",
     type: "multiple",
@@ -130,6 +167,8 @@ const questions = [
 ];
 
 
+let questionNumber   // When questionNumber is bigger then the available questions, present the score
+
 let questionsAnswers = []
 /* 
 questionsAnswers [
@@ -139,63 +178,44 @@ questionsAnswers [
 },
 ] */
 
-    for (i = 0; i < questions.length; i++) {
 
-        const answers = {}
-        //let answer = {} 
-        answers.question = questions[i].question
-        let allAnswers = []
-        allAnswers.push(questions[i].correct_answer)
-    
-            for (j=0; j < questions[i].incorrect_answers.length; j++ ) {
-                allAnswers.push(questions[i].incorrect_answers[j])
-            }
-    
-        answers.options = allAnswers
-    
-        questionsAnswers.push(answers)
-    
+/* 
+const answers = answers {
+    question: "What does CPU stand for?",
+    options: ['Central Processing Unit', 'Central Process Unit', 'Computer Personal Unit', 'Central Processor Unit']
+} */
+
+
+for (i = 0; i < questions.length; i++) {
+
+    const answers = {}
+    //let answer = {} 
+    answers.question = questions[i].question
+    let allAnswers = []
+    allAnswers.push(questions[i].correct_answer)
+
+        for (j=0; j < questions[i].incorrect_answers.length; j++ ) {
+            allAnswers.push(questions[i].incorrect_answers[j])
         }
-    
-    console.log(questionsAnswers)
+
+    answers.options = allAnswers
+
+    questionsAnswers.push(answers)
+
+    }
+
+console.log(questionsAnswers)
 
 
 
-
-
-
-window.onload = function () {
-    // HINTS
-    // IF YOU ARE DISPLAYING ALL THE QUESTIONS AT ONCE:
-    // For each question, create a container for wrapping it; then create a radio button
-    // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/radio
-    // with, as options, both the correct answer and the incorrect ones
-    // (you'll probably need to google how to get the value from a radio button in JS to evaluate the final score)
-    //
-    // IF YOU ARE DISPLAYING ONE QUESTION AT A TIME
-    // Display the first question with the text and the radio buttons
-    // when the user selects an answer, pick the next question from the array and replace the old one with it
-    // saving the user's choice in a variable
-    
-    
-      
-    
-    loadQuestions()    
-    loadOptions()
-      
-};
-
-  
-
-
-
-  const loadQuestions = function() {
+const createQuestions = function() {
     // Find the parent  container)
     //alert("1")
     let questionsContainerNode = document.getElementById("questions-container")
-        
+    let questionsOnPage = questions.length    
+     
         // Within a loop, we create as many fields as we need
-        for (let i = 0; i < questions.length; i++) {
+        for (let i = 0; i <= questionsOnPage; i++) {
             // We create a new DIV element...
             let newFieldQuestion = document.createElement("div") // <div></div>
             let newFieldSet  = document.createElement("fieldset")  // <fieldset></fieldset>    
@@ -209,125 +229,110 @@ window.onload = function () {
 }
 
 
+
+
 const loadOptions = function () {
-    //alert("2")
-
-    let fieldSetNode = document.querySelectorAll('fieldset')    
-
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
+        //alert("2")
+    
+        let fieldSetNode = document.querySelectorAll('fieldset')    
+    
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                    let newRadioButton = document.createElement("input")   //create radio 
+                    let newLabel = document.createElement("label") 
+                    
+                    if(questionsAnswers[i].options[0] !== undefined) {
+                    
+                        newLabel.innerText = questionsAnswers[i].options[0]       //create label
+                        //newLabel.for="Q"+(i+1)
+                        newRadioButton.type="radio"
+                        newRadioButton.name="Q"+(i+1)
+                        newRadioButton.value = questionsAnswers[i].options[0]      
+                        
+                        fieldSetNode[i].appendChild(newRadioButton)
+                        fieldSetNode[i].appendChild(newLabel) 
+                    
+                }
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
                 let newRadioButton = document.createElement("input")   //create radio 
                 let newLabel = document.createElement("label") 
                 
-                if(questionsAnswers[i].options[0] !== undefined) {
-                
-                    newLabel.innerText = questionsAnswers[i].options[0]       //create label
+                if(questionsAnswers[i].options[1] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[1]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[1]
                     //newLabel.for="Q"+(i+1)
                     newRadioButton.type="radio"
-                    newRadioButton.name="Q"+(i+1)
-                    newRadioButton.value = questionsAnswers[i].options[0]      
+                    newRadioButton.name="Q"+(i+1)       
                     
                     fieldSetNode[i].appendChild(newRadioButton)
                     fieldSetNode[i].appendChild(newLabel) 
+                }      
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                let newRadioButton = document.createElement("input")   //create radio 
+                let newLabel = document.createElement("label") 
+    
+                if(questionsAnswers[i].options[2] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[2]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[2]
+                    //newLabel.for="Q"+(i+1)
+                    newRadioButton.type="radio"
+                    newRadioButton.name="Q"+(i+1)       
+                    
+                    fieldSetNode[i].appendChild(newRadioButton)
+                    fieldSetNode[i].appendChild(newLabel)   
+                }    
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                let newRadioButton = document.createElement("input")   //create radio 
+                let newLabel = document.createElement("label")
                 
+                if (questionsAnswers[i].options[3] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[3]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[3]
+                    //newLabel.for="Q"+(i+1)
+                    newRadioButton.type="radio"
+                    newRadioButton.name="Q"+(i+1)       
+                    
+                    fieldSetNode[i].appendChild(newRadioButton)
+                    fieldSetNode[i].appendChild(newLabel)       
             }
         }
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label") 
-            
-            if(questionsAnswers[i].options[1] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[1]       //create label
-                newRadioButton.value = questionsAnswers[i].options[1]
-                //newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel) 
-            }      
-        }
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label") 
-
-            if(questionsAnswers[i].options[2] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[2]       //create label
-                newRadioButton.value = questionsAnswers[i].options[2]
-                //newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel)   
-            }    
-        }
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label")
-            
-            if (questionsAnswers[i].options[3] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[3]       //create label
-                newRadioButton.value = questionsAnswers[i].options[3]
-                //newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel)       
-        }
     }
-} 
-
-   
-
-
-const checkAnswers = function (questions) {
     
+    
+    
+ 
+    
+   
+const checkAnswers = function () {
+    //alert("i am working")
 
     let allRadios = document.querySelectorAll('input') 
-    let scoreContainer = document.getElementById("score")
     let score = 0
     
-    let checkedButtons = []
-    let correctOnes = []
-
-    for (i = 0; i < questions.length; i++) {
-        correctOnes.push(questions[i].correct_answer)
-    }
-
-    console.log(correctOnes)    
-
-    for (radio of allRadios) {
-        if (radio.checked) {
-            checkedButtons.push(radio)
-        }
-    }
-    
-    console.log(checkedButtons)
-
-    if(checkedButtons.length < correctOnes.length){
-        alert('You must answer all the questions')
-        }
-
-    for (i = 0; i < checkedButtons.length; i++) {
-        if (checkedButtons[i].value === correctOnes[i] ) {
-            score++
-        }
-    }
+         
+        for (let i =0; i < allRadios.length; i++) {
         
-        
-        
-
-    scoreContainer.innerText = score
+            if (allRadios[i].checked && allRadios[i].value === questions[i].correct_answer ) {
+                score++               
+            }
+            let scoreContainer = document.getElementById('score')
+            scoreContainer.innerText = score
+        }            
 }  
     
 
-
+createQuestions()
+loadOptions() 
 // How to calculate the result? You can do it in 2 ways:
 // If you are presenting all the questions together, just take all the radio buttons and check if the selected answer === correct_answer
 // If you are presenting one question at a time, just add one point or not to the user score if the selected answer === correct_answer
 
+    </script>
+</body>
+</html>

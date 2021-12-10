@@ -123,5 +123,7 @@ button {
 #score {
     width: 100px;
     height: 100px;
-    background-color: red;
+    margin-left: 60px;
+    font-size: 1.5em;
+    font-weight: bold;
 }
