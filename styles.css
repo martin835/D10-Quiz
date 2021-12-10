@@ -1,0 +1,120 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+    color: #00db71;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#fields-container {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #4a4a4a;
+    padding: 12px;
+    border-radius: 8px;
+    display: block;
+    width: 60%;
+}
+
+.question {
+    color: white;
+    background-color: rgb(26, 26, 26);
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    text-align: left;
+    padding: 10px;
+    font-size: x-large;
+    border-color: rgb(49, 49, 49);
+    border-style: solid;
+    border-width: 2px;
+    margin: 3px;
+    border-radius: 10px;
+    /* cursor: pointer; */
+}
+
+.matched {
+    border-color: #00db71;
+    background-color: #00db7175;
+}
+
+button {
+    padding: 5px;
+    margin: 15px;
+    background-color: #00db7175;
+    color: white;
+    border-color: #00db7175 ;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 5px;   
+}
+
+#random-number-container {
+    padding: 5px;
+    margin: 0px 15px 0px 15px;
+    font-weight: bold;
+    font-size: 1.5em;
+   
+}body {
+    background-color: black;
+    color: white;
+    font-family: 'Nunito', sans-serif;
+    max-width: 1020px;
+    margin: 0 auto;
+}
+
+h1 {
+    text-align: center;
+    font-size: 40px;
+    margin-top: 20px;
+    color: #00db71;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#fields-container {
+    border-style: solid;
+    border-width: 3px;
+    border-color: #4a4a4a;
+    padding: 12px;
+    border-radius: 8px;
+    display: inline-block;
+    width: 60%;
+}
+
+fieldset {
+    background-color: rgb(70, 69, 69);
+}
+
+.matched {
+    border-color: #00db71;
+    background-color: #00db7175;
+}
+
+button {
+    padding: 5px;
+    margin: 15px;
+    background-color: #00db7175;
+    color: white;
+    border-color: #00db7175 ;
+    font-weight: bold;
+    font-size: 1.1em;
+    border-radius: 5px;   
+}
+
+#random-number-container {
+    padding: 5px;
+    margin: 0px 15px 0px 15px;
+    font-weight: bold;
+    font-size: 1.5em;
+   
+}
