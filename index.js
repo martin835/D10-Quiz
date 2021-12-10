@@ -129,7 +129,7 @@ const questions = [
   },
 ];
 
-let score
+
 let questionNumber   // When questionNumber is bigger then the available questions, present the score
 
 let questionsAnswers = []
@@ -188,85 +188,92 @@ window.onload = function () {
     
     console.log("This should happen last")
 
+    const loadOptions = function () {
+        //alert("2")
     
-
-   
-    let fieldSetNode = document.querySelectorAll('fieldset')
-    console.log(fieldSetNode)
+        let fieldSetNode = document.querySelectorAll('fieldset')    
     
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                    let newRadioButton = document.createElement("input")   //create radio 
+                    let newLabel = document.createElement("label") 
+                    
+                    if(questionsAnswers[i].options[0] !== undefined) {
+                    
+                        newLabel.innerText = questionsAnswers[i].options[0]       //create label
+                        //newLabel.for="Q"+(i+1)
+                        newRadioButton.type="radio"
+                        newRadioButton.name="Q"+(i+1)
+                        newRadioButton.value = questionsAnswers[i].options[0]      
+                        
+                        fieldSetNode[i].appendChild(newRadioButton)
+                        fieldSetNode[i].appendChild(newLabel) 
+                    
+                }
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
                 let newRadioButton = document.createElement("input")   //create radio 
                 let newLabel = document.createElement("label") 
                 
-                if(questionsAnswers[i].options[0] !== undefined) {
-                
-                    newLabel.innerText = questionsAnswers[i].options[0]       //create label
-                    newLabel.for="Q"+(i+1)
+                if(questionsAnswers[i].options[1] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[1]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[1]
+                    //newLabel.for="Q"+(i+1)
                     newRadioButton.type="radio"
                     newRadioButton.name="Q"+(i+1)       
                     
                     fieldSetNode[i].appendChild(newRadioButton)
                     fieldSetNode[i].appendChild(newLabel) 
+                }      
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                let newRadioButton = document.createElement("input")   //create radio 
+                let newLabel = document.createElement("label") 
+    
+                if(questionsAnswers[i].options[2] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[2]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[2]
+                    //newLabel.for="Q"+(i+1)
+                    newRadioButton.type="radio"
+                    newRadioButton.name="Q"+(i+1)       
+                    
+                    fieldSetNode[i].appendChild(newRadioButton)
+                    fieldSetNode[i].appendChild(newLabel)   
+                }    
+            }
+            for (let i = 0; i < fieldSetNode.length; i++) {
+    
+                let newRadioButton = document.createElement("input")   //create radio 
+                let newLabel = document.createElement("label")
                 
+                if (questionsAnswers[i].options[3] !== undefined) {
+                    newLabel.innerText = questionsAnswers[i].options[3]       //create label
+                    newRadioButton.value = questionsAnswers[i].options[3]
+                    //newLabel.for="Q"+(i+1)
+                    newRadioButton.type="radio"
+                    newRadioButton.name="Q"+(i+1)       
+                    
+                    fieldSetNode[i].appendChild(newRadioButton)
+                    fieldSetNode[i].appendChild(newLabel)       
             }
         }
-        for (let i = 0; i < fieldSetNode.length; i++) {
+    }
+    
+    
+    
+    loadOptions()    
+      
+};
 
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label") 
-            
-            if(questionsAnswers[i].options[1] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[1]       //create label
-                newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel) 
-            }      
-        }
-
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label") 
-
-            if(questionsAnswers[i].options[2] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[2]       //create label
-                newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel)   
-            }    
-        }
-
-        for (let i = 0; i < fieldSetNode.length; i++) {
-
-            let newRadioButton = document.createElement("input")   //create radio 
-            let newLabel = document.createElement("label")
-            
-            if (questionsAnswers[i].options[3] !== undefined) {
-                newLabel.innerText = questionsAnswers[i].options[3]       //create label
-                newLabel.for="Q"+(i+1)
-                newRadioButton.type="radio"
-                newRadioButton.name="Q"+(i+1)       
-                
-                fieldSetNode[i].appendChild(newRadioButton)
-                fieldSetNode[i].appendChild(newLabel)       
-        }
-    } 
-
-  };
-
-
+  
  
 
 
   const createQuestions = function() {
-    // Find the parent for the days (= fields container)
+    // Find the parent  container)
+    //alert("1")
     let questionsContainerNode = document.getElementById("questions-container")
     let questionsOnPage = questions.length    
      
@@ -284,12 +291,27 @@ window.onload = function () {
         }             
 }
 
-createQuestions() 
+createQuestions()
+    
 
+    
+const checkAnswers = function () {
+    //alert("i am working")
 
-
-
-
+    let allRadios = document.querySelectorAll('input') 
+    let score = 0
+    
+         
+        for (let i =0; i < allRadios.length; i++) {
+        
+            if (allRadios[i].checked && allRadios[i].value === questions[i].correct_answer ) {
+                score++               
+            }
+            let scoreContainer = document.getElementById('score')
+            scoreContainer.innerText = score
+        }            
+}  
+    
 
 
 // How to calculate the result? You can do it in 2 ways:
