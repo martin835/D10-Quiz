@@ -159,9 +159,22 @@ questionsAnswers [
     
     console.log(questionsAnswers)
 
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+      
+          // swap elements array[i] and array[j]
+          // we use "destructuring assignment" syntax to achieve that
+          // you'll find more details about that syntax in later chapters
+          // same can be written as:
+          // let t = array[i]; array[i] = array[j]; array[j] = t
+          [array[i], array[j]] = [array[j], array[i]];
+        }
+      }
 
-
-
+    //TODO - try to reshuffle options in some sensible way
+    //TODO - refactor loading options in more sensible way
+    //shuffle(questionsAnswers)
 
 
 window.onload = function () {
@@ -175,20 +188,12 @@ window.onload = function () {
     // IF YOU ARE DISPLAYING ONE QUESTION AT A TIME
     // Display the first question with the text and the radio buttons
     // when the user selects an answer, pick the next question from the array and replace the old one with it
-    // saving the user's choice in a variable
-    
-    
-      
+    // saving the user's choice in a variable     
     
     loadQuestions()    
     loadOptions()
       
 };
-
-  
-
-
-
   const loadQuestions = function() {
     // Find the parent  container)
     //alert("1")
