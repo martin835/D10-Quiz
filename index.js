@@ -172,6 +172,9 @@ questionsAnswers [
         }
       }
 
+      for (i = 0; i < questionsAnswers.length; i++) {
+        shuffle(questionsAnswers[i].options)
+      }
     //TODO - try to reshuffle options in some sensible way
     //TODO - refactor loading options in more sensible way
     //shuffle(questionsAnswers)
