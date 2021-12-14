@@ -93,6 +93,7 @@ h1 {
 
 fieldset {
     background-color: rgb(70, 69, 69);
+    border-radius: 8px;
 }
 
 .matched {
